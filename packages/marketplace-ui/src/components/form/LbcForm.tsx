@@ -185,12 +185,12 @@ async function createLbcCandyMachine(
       )
     );
     const candymachineIdl = await Program.fetchIdl(
-      new PublicKey("cndy3Z4yapfJBmL3ShUp5exZKqR3z33thTzeNMm2gRZ"),
+      new PublicKey("ccmpgw68x3NJmNPePFrTm6TsKCEYUVhF8rEAVL9rSDd"),
       marketplaceSdk.provider
     );
     const candymachineProgram = new Program(
       candymachineIdl!,
-      new PublicKey("cndy3Z4yapfJBmL3ShUp5exZKqR3z33thTzeNMm2gRZ"),
+      new PublicKey("ccmpgw68x3NJmNPePFrTm6TsKCEYUVhF8rEAVL9rSDd"),
       marketplaceSdk.provider
     );
     const candymachine: any =
