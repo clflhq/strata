@@ -1,14 +1,11 @@
-import {
-  Container,
-  Heading,
-  VStack,
-  Box
-} from "@chakra-ui/react";
+import React from "react";
+import { Container, Heading, VStack, Box } from "@chakra-ui/react";
 import { useRouter } from "next/router";
-import { FeaturedCommunities } from "@/components/landing/FeaturedCommunities";
-import { NewCommunities } from "@/components/landing/NewCommunities";
-import { useWindowSize } from "@/hooks/useWindowSize";
-import { Header } from "@/components/landing/Header";
+import { FeaturedCommunities } from "../src/components/landing/FeaturedCommunities";
+import { NewCommunities } from "../src/components/landing/NewCommunities";
+import { useWindowSize } from "../src/hooks/useWindowSize";
+import { Header } from "../src/components/landing/Header";
+import { Footer } from "../src/components/landing/Footer";
 
 const Home = () => {
   const router = useRouter();
@@ -26,7 +23,7 @@ const Home = () => {
           w="full"
         >
           <FeaturedCommunities />
-          <VStack align="start" spacing={4} w="full">
+          <VStack align="start" spacing={4} w="full" pb="100px">
             <Heading as="h1" size="xl" fontWeight="extrabold">
               New Communites
             </Heading>
@@ -34,6 +31,7 @@ const Home = () => {
           </VStack>
         </VStack>
       </Container>
+      <Footer />
     </Box>
   );
 };

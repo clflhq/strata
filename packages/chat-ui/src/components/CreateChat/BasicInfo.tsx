@@ -92,6 +92,7 @@ export const BasicInfo: React.FC<IBasicInfoProps> = ({
     clearErrors,
   } = useForm<any>({
     mode: "onChange",
+    //@ts-ignore
     resolver: yupResolver(validationSchema),
     defaultValues: {
       ...state.wizardData,
@@ -231,7 +232,7 @@ export const BasicInfo: React.FC<IBasicInfoProps> = ({
           id="name"
           label="Name"
           errors={errors}
-          help="The name that will apper in the sidebar."
+          help="The name that will appear in the sidebar."
         >
           <Input
             id="name"
@@ -272,6 +273,7 @@ export const BasicInfo: React.FC<IBasicInfoProps> = ({
               )}
             </FormHelperText>
           ) : (
+            //@ts-ignore
             <FormErrorMessage fontSize="xs" textTransform="capitalize">
               <Icon as={RiErrorWarningFill} mr={1} fontSize="1.3rem" />
               {errors.identifier.message}
@@ -320,6 +322,7 @@ export const BasicInfo: React.FC<IBasicInfoProps> = ({
               The image that will appear in the sidebar.
             </FormHelperText>
           ) : (
+            //@ts-ignore
             <FormErrorMessage fontSize="xs" textTransform="capitalize">
               <Icon as={RiErrorWarningFill} mr={2} fontSize="1.3rem" />
               {errors.image.message}

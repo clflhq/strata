@@ -1,9 +1,17 @@
-import { useChatIdFromIdentifierCertificate } from "@/hooks/useChatIdFromIdentifierCertificate";
-import { useChats } from "@/hooks/useChats";
+import React from "react";
+
+import { useChatIdFromIdentifierCertificate } from "../../../src/hooks/useChatIdFromIdentifierCertificate";
+import { useChats } from "../../../src/hooks/useChats";
 import {
   Button,
-  Center, HStack, Image,
-  Stack, Text, useBreakpoint, useColorModeValue, VStack
+  Center,
+  HStack,
+  Image,
+  Stack,
+  Text,
+  useBreakpoint,
+  useColorModeValue,
+  VStack,
 } from "@chakra-ui/react";
 import { PublicKey } from "@solana/web3.js";
 import { usePublicKey } from "@strata-foundation/react";
@@ -35,15 +43,14 @@ export const FEATURED_COMMUNITIES: Community[] = [
       '"Trying out some innovative sh*t that may one day lead to web3 discord. What you’ve all cried about for so long!" - Tom',
     publicKey: "ExLKWwbRGzE8Cy2z1bWPCk7iKE9iFZeVYFUgxhVUe98h",
     image:
-      "https://pbs.twimg.com/profile_banners/1458130160696401925/1650686913/1500x500",
+      "/Taiyo.jpg",
   },
   {
     name: "Open Collective Chat",
     description:
-      "A truly decentralized community of creators on Solana. Open Collective is the starting point for many social tokens on Solana",
+      "Solana’s first decentralized art collective. Share, discover, and support 1:1 artists.",
     publicKey: "HN8GF8nKHLnymPUwn4cfNmtSwAcErRweDDDGzyhj6wKH",
-    image:
-      "https://blog.strataprotocol.com/assets/images/OpenSplash-a0b19b6eb641e0077c193888fbdb17fe.png",
+    image: "/OC.jpg",
   },
 ];
 
@@ -137,7 +144,7 @@ const Community = ({
               ? "100%"
               : "60%",
         }}
-        objectFit={{ base:"cover", md: "scale-down" }}
+        objectFit={{ base: "cover", md: "scale-down" }}
         alt={name}
         src={image}
       />
@@ -145,23 +152,24 @@ const Community = ({
   );
 };
 
-const chatKeys = FEATURED_COMMUNITIES.map(({ publicKey }) => new PublicKey(publicKey))
+const chatKeys = FEATURED_COMMUNITIES.map(
+  ({ publicKey }) => new PublicKey(publicKey)
+);
 export const FeaturedCommunities = () => {
   const { chats } = useChats(chatKeys, {
-    minActiveUsers: 0
+    minActiveUsers: 0,
   });
   const chatsWithDescription = useMemo(
     () =>
       FEATURED_COMMUNITIES.map((community) => ({
         ...community,
-        ...chats.find(
-          (chat) => chat.publicKey === community.publicKey
-        ),
+        ...chats.find((chat) => chat.publicKey === community.publicKey),
       })),
     [chats]
   );
 
   return (
+    // @ts-ignore
     <Carousel interval={10000} swipeable emulateTouch infiniteLoop autoPlay>
       {chatsWithDescription.map((chat) => (
         <Community key={chat.publicKey} {...chat} />

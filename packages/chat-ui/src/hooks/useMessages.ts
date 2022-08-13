@@ -57,16 +57,18 @@ async function getMessagesFromTxs(
     const newParts = (
       await Promise.all(
         txs.map(
-          async ({ signature: sig, transaction, pending, meta, blockTime }) => {
+          async ({  logs, signature: sig, transaction, pending, meta, blockTime }) => {
             if (
               !txToMessages[sig] ||
-              // @ts-ignore
-              (txToMessages[sig][0].pending && !pending)
+              txToMessages[sig].length == 0 ||
+                // @ts-ignore
+                txToMessages[sig][0].pending && !pending
             ) {
               try {
                 const found = (
                   await chatSdk.getMessagePartsFromInflatedTx({
-                    transaction: transaction!,
+                    logs,
+                    transaction,
                     txid: sig,
                     meta,
                     blockTime,
@@ -193,7 +195,8 @@ const lambdaFetcher = async (args: FetchArgs) => {
     method: "POST",
     headers: {
       'Accept': 'application/json',
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      'Cache-Control': 'no-cache'
     }
   });
   const rows = await res.json();
@@ -278,7 +281,7 @@ export function useMessages({
     }
   }, [currentTime, chat, numTransactions]);
 
-  const fetchFn = useCallback(async (args) => fetcher ? fetcher(args) : Promise.resolve([]), [fetcher])
+  const fetchFn = useCallback(async (args: any) => fetcher ? fetcher(args) : Promise.resolve([]), [fetcher])
   const { loading: fetchLoading, result: fetchedMessageParts, error: fetchError, execute: runFetch  } = useAsyncCallback(fetchFn)
   
   
